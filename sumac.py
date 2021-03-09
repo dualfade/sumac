@@ -43,7 +43,12 @@ if __name__ == "__main__":
     args = vars(parser.parse_args())
 
     # set args for fetch --
-    if args['mode'] == 'fetch':
-        l, n, e = collection_list('%s, %s', 
-                                  args['dnvers'],
-                                  args['arch'])
+    try:
+        if args['mode'] == 'fetch':
+            l, n, e = collection_list('%s, %s', 
+                                      args['dnvers'],
+                                      args['arch'])
+            print("we're back --")
+    except Exception as e:
+        print('[!] Something puked %e' % e)
+        sys.exit(-1)
