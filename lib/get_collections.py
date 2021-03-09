@@ -9,7 +9,7 @@ import pandas as pd
 # parse SharpCollection lists --
 def collection_list(self, dnvers, arch):
     """ list SharpCollection exe's """
-    print('[+] select a target exe:\n')
+    print('[+] Project Repositories:\n')
     try:
         page = requests.get('https://github.com/Flangvik/SharpCollection/tree/master/NetFramework_%s_%s' % (dnvers, arch))
         page_content = BeautifulSoup(page.content, 'html.parser')
@@ -36,7 +36,6 @@ def collection_list(self, dnvers, arch):
     pd.set_option('display.width', None)
     pd.set_option('display.max_colwidth', None)
     print(df)
-    print('\n[+] select an exe to generate shellcode:\n')
     #print(df.loc[0])
 
     # return to main --
