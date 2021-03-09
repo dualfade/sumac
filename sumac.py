@@ -12,6 +12,7 @@ import sys
 import argparse
 
 from lib.get_collections import collection_list
+from lib.fetch_collection_name import fetch_executable
 
 # globals --
 
@@ -39,7 +40,7 @@ if __name__ == "__main__":
 
     # args --
     parser = argparse.ArgumentParser(prog='sumac')
-    subparsers = parser.add_subparsers(dest='mode', help='sumac prog functions')
+    subparsers = parser.add_subparsers(dest='mode', help='sumac functions')
     collection_parser = subparsers.add_parser('fetch', help='Tell sumac to fetch SharpCollection repo list')
     select_exe_parser = subparsers.add_parser('select', help='Tell sumac to use a SharpCollection c# exe')
 
@@ -59,12 +60,13 @@ if __name__ == "__main__":
     # set args for fetch --
     try:
         if args['mode'] == 'fetch':
-            l, n, e = collection_list('%s, %s', 
-                                      args['dnvers'],
-                                      args['arch'])
+            collection_list('%s, %s',
+                                args['dnvers'],
+                                args['arch'])
     # select build binary --
         if args['mode'] == 'select':
-            print('\nmain placeholder--')
+            # call collection_list / get and return e --
+            print('\nsumac placeholder--')
 
     # exception --
     except Exception as e:

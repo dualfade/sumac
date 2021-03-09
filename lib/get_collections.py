@@ -1,15 +1,18 @@
 #!/usr/bin/env python3
 # collections --
 
+import re
 import sys
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 
+# dataframe class --
+
 # parse SharpCollection lists --
 def collection_list(self, dnvers, arch):
     """ list SharpCollection exe's """
-    print('[+] Project Repositories:\n')
+    print('[+] Project Executables:\n')
     try:
         page = requests.get('https://github.com/Flangvik/SharpCollection/tree/master/NetFramework_%s_%s' % (dnvers, arch))
         page_content = BeautifulSoup(page.content, 'html.parser')
@@ -20,26 +23,30 @@ def collection_list(self, dnvers, arch):
 
     # populate exe build names --
     e = []
-    l, n = collection_info()
+
+    # project name / link --
+    #l, n = collection_info()
+    collection_info()
 
     # exe build names --
     for f in body:
         title = f.contents[0]
-        e.append(title)
+        if (re.search("exe", title)):
+            e.append(title)
+        else:
+            next
 
     df = pd.DataFrame({
-        "Repository Name": n,
-        "Source Code Link": l,
+        "Repository Name": e,
     })
     pd.set_option('display.max_rows', None)
     pd.set_option('display.max_columns', None)
     pd.set_option('display.width', None)
     pd.set_option('display.max_colwidth', None)
-    print(df)
+    #print(df)
     #print(df.loc[0])
 
-    # return to main --
-    return (l, n, e)
+    #return (e)
 
 # get links --
 def collection_info():
@@ -62,4 +69,15 @@ def collection_info():
         text = f.find('a').get_text()
         l.append(href)
         n.append(text)
-    return(l, n)
+
+    df = pd.DataFrame({
+        "Repository Name": n,
+        "Source Code Link": l,
+    })
+    pd.set_option('display.max_rows', None)
+    pd.set_option('display.max_columns', None)
+    print(df)
+
+    #return(l, n)
+
+#__EOF__
