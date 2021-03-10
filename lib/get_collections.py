@@ -8,8 +8,39 @@ from bs4 import BeautifulSoup
 import pandas as pd
 
 # dataframe class --
+class Format_DataFrame:
+    """ format dataframe output -- """
+    def __init__(self, l, n, e):
+        """ link / name / exe -- """
+        self.l = l
+        self.n = n
+        self.e = e
 
-# parse SharpCollection lists --
+    def format_eframe(self):
+        """ executable data -- """
+        df_e = pd.DataFrame({
+            "Executable Name": self.e,
+        })
+        pd.set_option('display.max_rows', None)
+        pd.set_option('display.max_columns', None)
+        pd.set_option('display.width', None)
+        pd.set_option('display.max_colwidth', None)
+        print(df_e)
+
+    def format_lnframe(self):
+        """ name / link data -- """
+        df_ln = pd.DataFrame({
+            "Repository Name": self.n,
+            "Repository Link": self.l,
+        })
+        pd.set_option('display.max_rows', None)
+        pd.set_option('display.max_columns', None)
+        pd.set_option('display.width', None)
+        pd.set_option('display.max_colwidth', None)
+        print(df_ln)
+
+
+# parse SharpCollection exe list --
 def collection_list(self, dnvers, arch):
     """ list SharpCollection exe's """
     print('[+] Project Executables:\n')
@@ -24,31 +55,21 @@ def collection_list(self, dnvers, arch):
     # populate exe build names --
     e = []
 
-    # project name / link --
-    #l, n = collection_info()
-    collection_info()
-
     # exe build names --
     for f in body:
         title = f.contents[0]
-        if (re.search("exe", title)):
+        if (re.search(".exe", title)):
             e.append(title)
         else:
             next
 
-    df = pd.DataFrame({
-        "Repository Name": e,
-    })
-    pd.set_option('display.max_rows', None)
-    pd.set_option('display.max_columns', None)
-    pd.set_option('display.width', None)
-    pd.set_option('display.max_colwidth', None)
-    #print(df)
-    #print(df.loc[0])
+    # exectable class --
+    e_out = Format_DataFrame(None, None, e)
+    e_out.format_eframe()
 
     #return (e)
 
-# get links --
+# get SharpCollection information --
 def collection_info():
     """ get collection link and information -- """
     try:
@@ -60,9 +81,9 @@ def collection_info():
         print('[!] Error %e' % e)
         sys.exit(-1)
 
-    # populate links / repo names --
-    l = []
+    # populate repo names --
     n = []
+    l = []
 
     for f in name:
         href = f.contents[0].get('href')
@@ -70,14 +91,10 @@ def collection_info():
         l.append(href)
         n.append(text)
 
-    df = pd.DataFrame({
-        "Repository Name": n,
-        "Source Code Link": l,
-    })
-    pd.set_option('display.max_rows', None)
-    pd.set_option('display.max_columns', None)
-    print(df)
+    # name / link class --
+    ln_out = Format_DataFrame(l, n , None)
+    ln_out.format_lnframe()
 
-    #return(l, n)
+    #return(n, l)
 
 #__EOF__

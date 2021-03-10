@@ -11,6 +11,7 @@
 import sys
 import argparse
 
+from lib.get_collections import collection_info
 from lib.get_collections import collection_list
 from lib.fetch_collection_name import fetch_executable
 
@@ -41,8 +42,10 @@ if __name__ == "__main__":
     # args --
     parser = argparse.ArgumentParser(prog='sumac')
     subparsers = parser.add_subparsers(dest='mode', help='sumac functions')
-    collection_parser = subparsers.add_parser('fetch', help='Tell sumac to fetch SharpCollection repo list')
-    select_exe_parser = subparsers.add_parser('select', help='Tell sumac to use a SharpCollection c# exe')
+    # genetic list repos info --
+    information_parser = subparsers.add_parser('info', help='Tell sumac to fetch SharpCollection info list')
+    # do things and stuff -
+    collection_parser = subparsers.add_parser('select', help='Tell sumac to fetch SharpCollection exe list')
 
     # get collections  --
     collection_parser.add_argument('--dnvers', '-d', required=False, default='4.5',
@@ -50,23 +53,19 @@ if __name__ == "__main__":
     collection_parser.add_argument('--arch', '-a', required=False, default='x64',
                                    help='Target architecture (x86/x64/any) | default x64')
 
-    # list / select exe --
-    select_exe_parser.add_argument('--select', '-s', required=False,
-                                   help='Select a target binary to generate shellcode')
 
     # parse the args --
     args = vars(parser.parse_args())
 
     # set args for fetch --
     try:
-        if args['mode'] == 'fetch':
+        if args['mode'] == 'info':
+            collection_info()
+    # select build binary --
+        if args['mode'] == 'select':
             collection_list('%s, %s',
                                 args['dnvers'],
                                 args['arch'])
-    # select build binary --
-        if args['mode'] == 'select':
-            # call collection_list / get and return e --
-            print('\nsumac placeholder--')
 
     # exception --
     except Exception as e:
