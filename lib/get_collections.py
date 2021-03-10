@@ -30,8 +30,8 @@ class Format_DataFrame:
     def format_lnframe(self):
         """ name / link data -- """
         df_ln = pd.DataFrame({
-            "Repository Name": self.n,
             "Repository Link": self.l,
+            "Repository Name": self.n,
         })
         pd.set_option('display.max_rows', None)
         pd.set_option('display.max_columns', None)

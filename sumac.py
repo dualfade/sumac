@@ -44,10 +44,9 @@ if __name__ == "__main__":
     subparsers = parser.add_subparsers(dest='mode', help='sumac functions')
     # genetic list repos info --
     information_parser = subparsers.add_parser('info', help='Tell sumac to fetch SharpCollection info list')
-    # do things and stuff -
     collection_parser = subparsers.add_parser('select', help='Tell sumac to fetch SharpCollection exe list')
 
-    # get collections  --
+    # do things --
     collection_parser.add_argument('--dnvers', '-d', required=False, default='4.5',
                                    help='Dotnet version (4.0/4.5/4.7) | default: 4.5')
     collection_parser.add_argument('--arch', '-a', required=False, default='x64',
