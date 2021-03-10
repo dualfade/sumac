@@ -4,6 +4,7 @@
 import re
 import sys
 import requests
+import functools
 from bs4 import BeautifulSoup
 import pandas as pd
 
@@ -30,15 +31,14 @@ class Format_DataFrame:
     def format_lnframe(self):
         """ name / link data -- """
         df_ln = pd.DataFrame({
-            "Repository Link": self.l,
             "Repository Name": self.n,
+            "Repository Link": self.l,
         })
         pd.set_option('display.max_rows', None)
         pd.set_option('display.max_columns', None)
         pd.set_option('display.width', None)
         pd.set_option('display.max_colwidth', None)
         print(df_ln)
-
 
 # parse SharpCollection exe list --
 def collection_list(self, dnvers, arch):
