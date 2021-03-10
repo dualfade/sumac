@@ -13,7 +13,7 @@ import argparse
 
 from lib.get_collections import collection_info
 from lib.get_collections import collection_list
-from lib.fetch_collection_name import fetch_executable
+from lib.fetch_collection_exe import fetch_executable
 
 # globals --
 
@@ -45,12 +45,16 @@ if __name__ == "__main__":
     # genetic list repos info --
     information_parser = subparsers.add_parser('info', help='Tell sumac to fetch SharpCollection info list')
     collection_parser = subparsers.add_parser('select', help='Tell sumac to fetch SharpCollection exe list')
+    fetch_executable = subparsers.add_parser('fetch', help='Tell sumac to fetch a target SharpCollection exe')
 
     # do things --
     collection_parser.add_argument('--dnvers', '-d', required=False, default='4.5',
                                    help='Dotnet version (4.0/4.5/4.7) | default: 4.5')
     collection_parser.add_argument('--arch', '-a', required=False, default='x64',
                                    help='Target architecture (x86/x64/any) | default x64')
+
+    # fetch exe -> staging --
+    fetch_executable.add_argument('--use', '-u', required=True, help='Fetch target executable')
 
 
     # parse the args --
@@ -67,6 +71,8 @@ if __name__ == "__main__":
             collection_list('%s, %s',
                                 args['dnvers'],
                                 args['arch'])
+        if args['mode'] == 'fetch':
+            print('\n[i] Fetching %s from SharpCollection' % args['use'])
 
     # exception --
     except Exception as e:
