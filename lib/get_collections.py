@@ -42,8 +42,7 @@ class Format_DataFrame:
 
 # parse SharpCollection exe list --
 def collection_list(self, dnvers, arch):
-    """ list SharpCollection exe's """
-    print('[+] Project Executables:\n')
+    """ collection exe's by arch and dnn vers --"""
     try:
         page = requests.get('https://github.com/Flangvik/SharpCollection/tree/master/NetFramework_%s_%s' % (dnvers, arch))
         page_content = BeautifulSoup(page.content, 'html.parser')

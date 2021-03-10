@@ -60,9 +60,11 @@ if __name__ == "__main__":
     # set args for fetch --
     try:
         if args['mode'] == 'info':
+            print('\n[i] Fetching project name and link info:\n')
             collection_info()
     # select build binary --
         if args['mode'] == 'select':
+            print('\n[i] Fetching platform Executable list:\n')
             collection_list('%s, %s',
                                 args['dnvers'],
                                 args['arch'])
