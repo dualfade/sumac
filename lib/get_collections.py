@@ -9,7 +9,8 @@ from bs4 import BeautifulSoup
 import pandas as pd
 
 # constants --
-#import constant
+from .constant import SHARPCOLLECTION
+from .constant import SHARPCOLLECTION_LIST
 
 # dataframe class --
 class Format_DataFrame:
@@ -35,8 +36,7 @@ class Format_DataFrame:
 def collection_list(self, dnvers, arch):
     """ collection exe's by arch and dnn vers --"""
     try:
-        #page = requests.get('%s_%s_%s' % (constant.SHARPCOLLECTION_LIST, dnvers, arch))
-        page = requests.get('https://github.com/Flangvik/SharpCollection/tree/master/NetFramework_%s_%s' % (dnvers, arch))
+        page = requests.get('%s_%s_%s' % (SHARPCOLLECTION_LIST, dnvers, arch))
         page_content = BeautifulSoup(page.content, 'html.parser')
         body = page_content.find_all(class_='js-navigation-open Link--primary')
     except ConnectionError as e:
@@ -61,8 +61,7 @@ def collection_list(self, dnvers, arch):
 def collection_info():
     """ get collection link and information -- """
     try:
-        #page = requests.get('%s' % constant.SHARPCOLLECTION)
-        page = requests.get('https://github.com/Flangvik/SharpCollection')
+        page = requests.get('%s' % SHARPCOLLECTION)
         page_content = BeautifulSoup(page.content, 'html.parser')
         body = page_content.find(class_='markdown-body entry-content container-lg')
         name = body.find_all('li')

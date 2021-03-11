@@ -13,8 +13,6 @@ import argparse
 
 from lib import get_collections
 
-# constants --
-
 # defs --
 def banner():
     print('''
