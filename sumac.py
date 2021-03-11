@@ -51,7 +51,7 @@ if __name__ == "__main__":
     collection_parser.add_argument('--dnvers', '-d', required=False, default='4.5',
                                    help='Dotnet version (4.0/4.5/4.7) | default: 4.5')
     collection_parser.add_argument('--arch', '-a', required=False, default='x64',
-                                   help='Target architecture (x86/x64/any) | default x64')
+                                   help='Target architecture (x86/x64/Any) | default x64')
 
     # fetch exe -> staging --
     fetch_executable.add_argument('--use', '-u', required=True, help='Fetch target executable')

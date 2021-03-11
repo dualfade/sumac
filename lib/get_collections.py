@@ -5,7 +5,6 @@ import re
 import sys
 import time
 import requests
-import functools
 from bs4 import BeautifulSoup
 import pandas as pd
 
