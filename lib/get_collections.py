@@ -19,7 +19,7 @@ class Format_DataFrame:
     def format_lnframe(self):
         """ exe / link data -- """
         df_ln = pd.DataFrame({
-            "Repository Name": self.e,
+            "Executable Name": self.e,
             "Repository Link": self.l,
         })
         pd.set_option('display.max_rows', None)
