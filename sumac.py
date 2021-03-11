@@ -11,9 +11,9 @@
 import sys
 import argparse
 
-from lib.get_collections import collection_info
-from lib.get_collections import collection_list
-from lib.fetch_collection_exe import fetch_executable
+from app.get_collections import collection_info
+from app.get_collections import collection_list
+from app.fetch_collection_exe import fetch_executable
 
 # globals --
 
@@ -67,7 +67,7 @@ if __name__ == "__main__":
             l = collection_info()
             for link in l:
                 print('%s' % link)
-    # select build binary --
+        # select build binary --
         if args['mode'] == 'select':
             print('\n[i] %s Executable list:\n' % args['arch'])
             collection_list('%s, %s',

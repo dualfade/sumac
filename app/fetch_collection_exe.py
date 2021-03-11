@@ -5,7 +5,7 @@ import sys
 import request
 from tqdm import tqdm
 
-# import local constants --
+# constants --
 
 def fetch_executable():
     """ fetch target executable """
