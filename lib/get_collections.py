@@ -3,6 +3,7 @@
 
 import re
 import sys
+import time
 import requests
 import functools
 from bs4 import BeautifulSoup
@@ -62,11 +63,38 @@ def collection_list(self, dnvers, arch):
         else:
             next
 
+    n, l = collection_info()
+    Wrangle_lists(l, e)
+
     # exectable class --
-    e_out = Format_DataFrame(None, None, e)
-    e_out.format_eframe()
+    #e_out = Format_DataFrame(None, None, e)
+    #e_out.format_eframe()
 
     #return (e)
+
+# sort list data ==
+def Wrangle_lists(l, e):
+    """ match link / exe names -- """
+    """ NaN if not available per build arch -- """
+    """ https://bit.ly/3qDLhem """
+    lst = []
+    for i in e:
+        has_match = False
+        for j in l:
+            if i.split('.')[0] in j:
+                has_match = True
+                print(i, j)
+                if j not in lst:
+                    lst.append(j)
+            if len(i) > 1:
+                k = ' '.join(i.split('.')[:2])
+                if k in j:
+                    has_match = True
+                    print(i, j)
+                    if j not in lst:
+                        lst.append(j)
+        if not has_match:
+            lst.append(i + ' - NaN')
 
 # get SharpCollection information --
 def collection_info():
@@ -90,10 +118,6 @@ def collection_info():
         l.append(href)
         n.append(text)
 
-    # name / link class --
-    ln_out = Format_DataFrame(l, n , None)
-    ln_out.format_lnframe()
-
-    #return(n, l)
+    return(n, l)
 
 #__EOF__
