@@ -11,11 +11,9 @@
 import sys
 import argparse
 
-from app.get_collections import collection_info
-from app.get_collections import collection_list
-from app.fetch_collection_exe import fetch_executable
+from lib import get_collections
 
-# globals --
+# constants --
 
 # defs --
 def banner():
@@ -64,13 +62,13 @@ if __name__ == "__main__":
     try:
         if args['mode'] == 'info':
             print('\n[i] Projects:\n')
-            l = collection_info()
+            l = get_collections.collection_info()
             for link in l:
                 print('%s' % link)
         # select build binary --
         if args['mode'] == 'select':
             print('\n[i] %s Executable list:\n' % args['arch'])
-            collection_list('%s, %s',
+            get_collections.collection_list('%s, %s',
                                 args['dnvers'],
                                 args['arch'])
         if args['mode'] == 'fetch':
