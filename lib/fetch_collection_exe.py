@@ -5,6 +5,8 @@ import sys
 import request
 from tqdm import tqdm
 
+# import local constants --
+
 def fetch_executable():
     """ fetch target executable """
     chunk_size = 1024

@@ -64,7 +64,9 @@ if __name__ == "__main__":
     try:
         if args['mode'] == 'info':
             print('\n[i] Projects:\n')
-            collection_info()
+            l = collection_info()
+            for link in l:
+                print('%s' % link)
     # select build binary --
         if args['mode'] == 'select':
             print('\n[i] %s Executable list:\n' % args['arch'])

@@ -53,7 +53,31 @@ def collection_list(self, dnvers, arch):
     l = collection_info()
     Wrangle_lists(e, l)
 
-# sort list data ==
+# get SharpCollection information --
+def collection_info():
+    """ get collection link and information -- """
+    try:
+        page = requests.get('https://github.com/Flangvik/SharpCollection')
+        page_content = BeautifulSoup(page.content, 'html.parser')
+        body = page_content.find(class_='markdown-body entry-content container-lg')
+        name = body.find_all('li')
+    except ConnectionError as e:
+        print('[!] Error %e' % e)
+        sys.exit(-1)
+
+    # populate repo names --
+    n = []
+    l = []
+
+    for f in name:
+        href = f.contents[0].get('href')
+        text = f.find('a').get_text()
+        l.append(href)
+        n.append(text)
+
+    return(l)
+
+# sort list data --
 def Wrangle_lists(e, l):
     """ match link / exe names -- """
     """ NaN if not available per build arch -- """
@@ -85,30 +109,5 @@ def Wrangle_lists(e, l):
     # format output --
     match_out = Format_DataFrame(exe_list, link_list)
     match_out.format_lnframe()
-
-
-# get SharpCollection information --
-def collection_info():
-    """ get collection link and information -- """
-    try:
-        page = requests.get('https://github.com/Flangvik/SharpCollection')
-        page_content = BeautifulSoup(page.content, 'html.parser')
-        body = page_content.find(class_='markdown-body entry-content container-lg')
-        name = body.find_all('li')
-    except ConnectionError as e:
-        print('[!] Error %e' % e)
-        sys.exit(-1)
-
-    # populate repo names --
-    n = []
-    l = []
-
-    for f in name:
-        href = f.contents[0].get('href')
-        text = f.find('a').get_text()
-        l.append(href)
-        n.append(text)
-
-    return(l)
 
 #__EOF__
