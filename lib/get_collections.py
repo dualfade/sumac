@@ -12,27 +12,15 @@ import pandas as pd
 # dataframe class --
 class Format_DataFrame:
     """ format dataframe output -- """
-    def __init__(self, l, n, e):
+    def __init__(self, e, l):
         """ link / name / exe -- """
-        self.l = l
-        self.n = n
         self.e = e
-
-    def format_eframe(self):
-        """ executable data -- """
-        df_e = pd.DataFrame({
-            "Executable Name": self.e,
-        })
-        pd.set_option('display.max_rows', None)
-        pd.set_option('display.max_columns', None)
-        pd.set_option('display.width', None)
-        pd.set_option('display.max_colwidth', None)
-        print(df_e)
+        self.l = l
 
     def format_lnframe(self):
-        """ name / link data -- """
+        """ exe / link data -- """
         df_ln = pd.DataFrame({
-            "Repository Name": self.n,
+            "Repository Name": self.e,
             "Repository Link": self.l,
         })
         pd.set_option('display.max_rows', None)
@@ -63,38 +51,42 @@ def collection_list(self, dnvers, arch):
         else:
             next
 
-    n, l = collection_info()
-    Wrangle_lists(l, e)
-
-    # exectable class --
-    #e_out = Format_DataFrame(None, None, e)
-    #e_out.format_eframe()
-
-    #return (e)
+    l = collection_info()
+    Wrangle_lists(e, l)
 
 # sort list data ==
-def Wrangle_lists(l, e):
+def Wrangle_lists(e, l):
     """ match link / exe names -- """
     """ NaN if not available per build arch -- """
     """ https://bit.ly/3qDLhem """
+    exe_list = []
+    link_list = []
+
     lst = []
     for i in e:
         has_match = False
         for j in l:
             if i.split('.')[0] in j:
                 has_match = True
-                print(i, j)
+                #print(i, j)
+                exe_list.append(i)
+                link_list.append(j)
                 if j not in lst:
                     lst.append(j)
             if len(i) > 1:
-                k = ' '.join(i.split('.')[:2])
+                k = ' '.join(i.split()[:2])
                 if k in j:
                     has_match = True
-                    print(i, j)
+                    #print(i, j)
                     if j not in lst:
                         lst.append(j)
         if not has_match:
             lst.append(i + ' - NaN')
+
+    # format output --
+    match_out = Format_DataFrame(exe_list, link_list)
+    match_out.format_lnframe()
+
 
 # get SharpCollection information --
 def collection_info():
@@ -118,6 +110,6 @@ def collection_info():
         l.append(href)
         n.append(text)
 
-    return(n, l)
+    return(l)
 
 #__EOF__
