@@ -12,6 +12,7 @@ import sys
 import argparse
 
 from lib import get_collections
+from lib import fetch_collection_exe
 
 # defs --
 def banner():
@@ -39,9 +40,9 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(prog='sumac')
     subparsers = parser.add_subparsers(dest='mode', help='sumac functions')
     # genetic list repos info --
-    information_parser = subparsers.add_parser('info', help='Tell sumac to fetch SharpCollection info list')
-    collection_parser = subparsers.add_parser('select', help='Tell sumac to fetch SharpCollection exe list')
-    fetch_executable = subparsers.add_parser('fetch', help='Tell sumac to fetch a target SharpCollection exe')
+    information_parser = subparsers.add_parser('info', help='Tell sumac to fetch SharpCollection url list')
+    collection_parser = subparsers.add_parser('select', help='Tell sumac to fetch SharpCollection nightly exe list')
+    fetch_parser = subparsers.add_parser('fetch', help='Tell sumac to fetch a target SharpCollection exe')
 
     # do things --
     collection_parser.add_argument('--dnvers', '-d', required=False, default='4.5',
@@ -49,8 +50,13 @@ if __name__ == "__main__":
     collection_parser.add_argument('--arch', '-a', required=False, default='x64',
                                    help='Target architecture (x86/x64/Any) | default x64')
 
-    # fetch exe -> staging --
-    fetch_executable.add_argument('--use', '-u', required=True, help='Fetch target executable')
+    # fetch exe --
+    fetch_parser.add_argument('--dnvers', '-d', required=False, default='4.5',
+                                   help='Dotnet version (4.0/4.5/4.7) | default: 4.5')
+    fetch_parser.add_argument('--arch', '-a', required=False, default='x64',
+                                   help='Target architecture (x86/x64/Any) | default x64')
+    fetch_parser.add_argument('--file', '-f', required=True, default='x64',
+                                   help='Target executable to download')
 
 
     # parse the args --
@@ -70,7 +76,11 @@ if __name__ == "__main__":
                                 args['dnvers'],
                                 args['arch'])
         if args['mode'] == 'fetch':
-            print('\n[i] Fetching %s from SharpCollection' % args['use'])
+            print('\n[i] Fetching %s from SharpCollection' % args['file'])
+            fetch_collection_exe.fetch_bin('%s, %s, %s',
+                                           args['dnvers'],
+                                           args['arch'],
+                                           args['file'])
 
     # exception --
     except Exception as e:
