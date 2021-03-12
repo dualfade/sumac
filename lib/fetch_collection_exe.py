@@ -22,7 +22,7 @@ def fetch_bin(self, dnvers, arch, file):
         total_size = int(req.headers['Content-Length'])
 
         # write file --
-        w_file = ('/tmp/%s' % file)
+        w_file = "/".join(['/tmp', '%s' % file])
         with open(w_file, "wb") as file:
             for data in tqdm(iterable=req.iter_content(chunk_size=chunk_size),
                              total = total_size/chunk_size, unit='KB'):
