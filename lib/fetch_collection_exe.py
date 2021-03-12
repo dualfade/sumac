@@ -13,7 +13,7 @@ def fetch_bin(self, dnvers, arch, file):
     """ fetch target executable """
     chunk_size = 1024
 
-    # assmeble urls --
+    # assmeble url --
     url = ('%s_%s_%s/%s') % (SHARPCOLLECTION_DOWNLOAD, dnvers, arch, file)
     print('[i] Downloads url -> %s' % url)
 
