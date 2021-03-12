@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # fetch_colection_exe --
 
+import os
 import sys
 import requests
 from tqdm import tqdm
@@ -31,3 +32,14 @@ def fetch_bin(self, dnvers, arch, file):
         sys.exit(-1)
      
     print("Download Completed !!!")
+    stat_file(w_file)
+
+# stat file --
+def stat_file(w_file):
+    """ stat file information -- """
+    file_stats = os.stat(w_file)
+
+    print('\n[i] file location -> %s' % w_file)
+    print(file_stats)
+    print(f'File Size in Bytes is {file_stats.st_size}')
+    print(f'File Size in MegaBytes is {file_stats.st_size / (1024 * 1024)}')
