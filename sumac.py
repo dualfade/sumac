@@ -45,7 +45,7 @@ if __name__ == "__main__":
     information_parser = subparsers.add_parser('info', help='Tell sumac to fetch SharpCollection url list')
     collection_parser = subparsers.add_parser('select', help='Tell sumac to fetch SharpCollection nightly exe list')
     fetch_parser = subparsers.add_parser('fetch', help='Tell sumac to fetch a target SharpCollection exe')
-    shellcode_parser = subparsers.add_parser('test', help='Generate and test shellcode from a SharpCollection exe')
+    donut_parser = subparsers.add_parser('test', help='Generate and test shellcode from a SharpCollection exe')
 
     # do things --
     collection_parser.add_argument('--dnvers', '-d', required=False, default='4.5',
@@ -62,8 +62,12 @@ if __name__ == "__main__":
                                    help='Target executable to download')
 
     # create shellcode --
-    shellcode_parser.add_argument('--file', '-f', required=True,
-                                  help='Target executable to use')
+    # https://github.com/TheWover/donut/blob/master/docs/2019-08-21-Python_Extension.md
+    donut_parser.add_argument('--file', '-f', required=True, help='file input')
+    donut_parser.add_argument('--arch', '-a', required=False, default=2, type=int, help='arch (int [1,2,3])')
+    donut_parser.add_argument('--nsclass', '-n', required=False, help='namespace.class')
+    donut_parser.add_argument('--method', '-m', required=False, help='method')
+    donut_parser.add_argument('--output', '-o', required=True, help='output file')
 
 
     # parse the args --
@@ -89,10 +93,16 @@ if __name__ == "__main__":
                                        args['arch'],
                                        args['file'])
     if args['mode'] == 'test':
+        print('[i] for more information:')
+        print('https://github.com/TheWover/donut/blob/master/docs/2019-08-21-Python_Extension.md\n')
         print('\n[i] Generating test shellcode from %s' % args['file'])
         time.sleep(1)
-        test_donut_shellcode.create('%s',
-                               args['file'])
+        test_donut_shellcode.create('%s, %d, %s, %s, %s',
+                                                args['file'],
+                                                args['arch'],
+                                                args['nsclass'],
+                                                args['method'],
+                                                args['output'])
 
 
 
