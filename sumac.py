@@ -63,8 +63,10 @@ if __name__ == "__main__":
 
     # create shellcode --
     # https://github.com/TheWover/donut/blob/master/docs/2019-08-21-Python_Extension.md
-    donut_parser.add_argument('--file', '-f', required=True, help='file input')
-    donut_parser.add_argument('--arch', '-a', required=False, default=2, type=int, help='arch (int [1,2,3])')
+    donut_parser.add_argument('--infile', '-i', required=True, help='input file')
+    donut_parser.add_argument('--arch', '-a', required=False, default=2, type=int, help='arch (int [1..3])')
+    donut_parser.add_argument('--format', '-f', required=False, default=1, type=int, help='format (int [1..8])')
+    donut_parser.add_argument('--exit', '-x', required=False, default=2, type=int, help='exit func (int [1,2])')
     donut_parser.add_argument('--nsclass', '-n', required=False, help='namespace.class')
     donut_parser.add_argument('--method', '-m', required=False, help='method')
     donut_parser.add_argument('--output', '-o', required=True, help='output file')
@@ -93,13 +95,13 @@ if __name__ == "__main__":
                                        args['arch'],
                                        args['file'])
     if args['mode'] == 'test':
-        print('[i] for more information:')
-        print('https://github.com/TheWover/donut/blob/master/docs/2019-08-21-Python_Extension.md\n')
-        print('\n[i] Generating test shellcode from %s' % args['file'])
+        print('\n[i] Generating test shellcode from %s' % args['infile'])
         time.sleep(1)
-        test_donut_shellcode.create('%s, %d, %s, %s, %s',
-                                                args['file'],
+        test_donut_shellcode.create('%s, %d, %d, %d, %s, %s, %s',
+                                                args['infile'],
                                                 args['arch'],
+                                                args['format'],
+                                                args['exit'],
                                                 args['nsclass'],
                                                 args['method'],
                                                 args['output'])

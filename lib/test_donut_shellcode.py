@@ -4,26 +4,25 @@
 
 import sys
 import donut
-import time
+import base64
 import subprocess
 
-def create(self, file, arch, nsclass, method, output):
+def create(self, infile, arch, format, exit, nsclass, method, output):
     """ create donut shellcode -- """
     """ our test string -- """
     """ donut -o donut_v0.9.3_Seatbelt.bin -x 2 -c Seatbelt.Program -m Main -p "ARPTable" Seatbelt.exe """
 
     # parse args --
     sc = donut.create(
-        file='{}'.format(file),
+        file='{}'.format(infile),
         arch=arch,
+        format=format,
+        exit_opt=exit,
         cls='{}'.format(nsclass),
         method='{}'.format(method),
         output='{}'.format(output)
     )
 
-    # subprocess run --
-    sc_generate = subprocess.run(['%s' % sc],
-                                     stdin=None, stdout=None, stderr=None, shell=False)
-
-    # print / run  --
-    print('\n[+] Shellcode generated: %d' %sc_generate.returncode)
+    # subprocess  --
+    sc_generate = subprocess.check_call(['%s' % sc])
+    print('\n[+] Shellcode generated: %d' %sc_generate)
