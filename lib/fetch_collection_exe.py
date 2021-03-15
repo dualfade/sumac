@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# fetch_colection_exe --
+# fetch_collection_exe --
 
 import os
 import sys
@@ -31,7 +31,7 @@ def fetch_bin(self, dnvers, arch, file):
         print('[!] Download Failed !! %s' % e)
         sys.exit(-1)
      
-    print("Download Completed !!!")
+    print("\nDownload Completed !!!")
     stat_file(w_file)
 
 # stat file --
