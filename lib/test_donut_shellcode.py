@@ -9,13 +9,12 @@ import base64
 # constants --
 from .constant import PROGRAM_CS
 
-def create(self, infile, arch, format, exit, nsclass, method, output):
+def create(self, infile, arch, format, exit, nsclass, method, params, output):
     """ create donut shellcode -- """
     """ our test string -- """
     """ donut -o donut_v0.9.3_Seatbelt.bin -x 2 -c Seatbelt.Program -m Main -p "ARPTable" Seatbelt.exe """
     """ C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe /nologo /out:Desktop\donutTest.exe Z:\newfile.cs """
-    """ tasklist | findstr noepad """
-    """  """
+    """ tasklist | findstr notepad """
 
     # parse args --
     shellcode = donut.create(
@@ -25,6 +24,7 @@ def create(self, infile, arch, format, exit, nsclass, method, output):
             exit_opt=exit,
             cls='{}'.format(nsclass),
             method='{}'.format(method),
+            params='{}'.format(params),
             output='{}'.format(output)
         )
 

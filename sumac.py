@@ -69,6 +69,7 @@ if __name__ == "__main__":
     donut_parser.add_argument('--exit', '-x', required=False, default=2, type=int, help='exit func (int [1,2])')
     donut_parser.add_argument('--nsclass', '-n', required=False, help='namespace.class')
     donut_parser.add_argument('--method', '-m', required=False, help='method')
+    donut_parser.add_argument('--params', '-p', required=False, help='params')
     donut_parser.add_argument('--output', '-o', required=True, help='output file')
 
 
@@ -97,13 +98,14 @@ if __name__ == "__main__":
     if args['mode'] == 'test':
         print('\n[i] Generating test shellcode from %s' % args['infile'])
         time.sleep(1)
-        test_donut_shellcode.create('%s, %d, %d, %d, %s, %s, %s',
+        test_donut_shellcode.create('%s, %d, %d, %d, %s, %s, %s, %s',
                                                 args['infile'],
                                                 args['arch'],
                                                 args['format'],
                                                 args['exit'],
                                                 args['nsclass'],
                                                 args['method'],
+                                                args['params'],
                                                 args['output'])
 
 
