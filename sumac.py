@@ -64,9 +64,9 @@ if __name__ == "__main__":
     # create shellcode --
     # https://github.com/TheWover/donut/blob/master/docs/2019-08-21-Python_Extension.md
     donut_parser.add_argument('--infile', '-i', required=True, help='input file')
-    donut_parser.add_argument('--arch', '-a', required=False, default=2, type=int, help='arch (int [1..3])')
+    donut_parser.add_argument('--arch', '-a', required=False, default=3, type=int, help='arch (int [1..3])')
     donut_parser.add_argument('--format', '-f', required=False, default=1, type=int, help='format (int [1..8])')
-    donut_parser.add_argument('--exit', '-x', required=False, default=2, type=int, help='exit func (int [1,2])')
+    donut_parser.add_argument('--exit', '-x', required=False, default=1, type=int, help='exit func (int [1,2])')
     donut_parser.add_argument('--nsclass', '-n', required=False, help='namespace.class')
     donut_parser.add_argument('--method', '-m', required=False, help='method')
     donut_parser.add_argument('--params', '-p', required=False, help='params')
